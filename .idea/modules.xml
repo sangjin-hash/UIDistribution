@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UIDistribution.iml" filepath="$PROJECT_DIR$/.idea/modules/UIDistribution.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/UIDistribution.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/UIDistribution.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/guest/UIDistribution.guest.iml" filepath="$PROJECT_DIR$/.idea/modules/guest/UIDistribution.guest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/host/UIDistribution.host.iml" filepath="$PROJECT_DIR$/.idea/modules/host/UIDistribution.host.iml" />
+    </modules>
+  </component>
+</project>
