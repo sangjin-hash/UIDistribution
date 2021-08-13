@@ -1,4 +1,0 @@
-com/example/uidistribution/MainActivity.java
- com.example.uidistribution.MainActivity
-com/example/uidistribution/BuildConfig.java
- com.example.uidistribution.BuildConfig
