@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -16,7 +17,15 @@ public class MyService extends Service {
     
     private static final String TAG = "[SOCKET] Service";
 
-    
+    IServiceInterface mServiceInterface;
+    IServiceCallback mCallback;
+
+    public  Binder mBinder = new IServiceInterface.Stub() {
+        @Override
+        public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
+
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -43,8 +52,7 @@ public class MyService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind: ");
-        return null;
-        //mBinder;
+        return mBinder;
     }
     
     class ServerThread extends Thread{

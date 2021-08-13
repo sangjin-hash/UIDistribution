@@ -8,8 +8,13 @@ android {
 
     defaultConfig {
         applicationId "com.example.uidistribution"
+<<<<<<< HEAD
         minSdkVersion 29
         targetSdkVersion 29
+=======
+        minSdkVersion 16
+        targetSdkVersion 30
+>>>>>>> ryu
         versionCode 1
         versionName "1.0"
 
