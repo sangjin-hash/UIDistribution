@@ -11,9 +11,11 @@ import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "[SOCKET] Guest";
+
     private String ip = "192.168.0.21";
     private int port = 5672;
-    private Socket socket;
+    Socket socket;
 
     private String str;
 
@@ -26,26 +28,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-
+                    Log.d(TAG, "run: before connect");
                     socket = new Socket(ip,port);
-                    Log.d("Connect", "Socket 연결 완료");
-                } catch (IOException e) {
+                    Log.d(TAG, "run: socket Connect");
+                    ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                    str = (String)ois.readObject();
+                    Log.d(TAG, "run: " + str);
+                    socket.close();
+
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
-                    Log.d("Connect", "Connect 실패");
+                    Log.d(TAG, "run: Socket no connect");
+
                 }
 
-                while(true){
-                    try {
-                        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                        str = (String)ois.readObject();
-                        Log.d("통신 결과", "받은 문자열 = "+str);
-                        socket.close();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                        Log.d("통신 결과", "통신에 실패하였습니다");
-                    }
-                }
             }
-        });
+        }).start();
     }
 }

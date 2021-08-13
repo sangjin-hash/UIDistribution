@@ -5,12 +5,6 @@
       <config />
     </shared>
   </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
-  </component>
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="NONE" />
-  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -30,31 +24,50 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b5581db-bcb9-40b0-8feb-54af2135f351" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="99b0f84b-261b-46e5-abbd-3f6f5affc2ee" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/host/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/host/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/host/src/main/aidl/com/example/host/IServiceInterface.aidl" beforeDir="false" afterPath="$PROJECT_DIR$/host/src/main/aidl/com/example/host/IServiceInterface.aidl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@99011FFBA000PK]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[12191FDD40010L]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1wf40MSvpSc8pjVpQpxxvRAKUGs" />
+  <component name="ProjectId" id="1wets5YIkIgNCsodpYAVwpV8Npz" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -63,13 +76,12 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="SerialNumber@99011FFBA000PK" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-08-13T06:52:39.153121Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Android App.host">
+  <component name="RunManager" selected="Android App.guest">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -85,7 +97,6 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
-      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -135,7 +146,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="guest" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+    <configuration name="guest" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="UIDistribution.guest" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -143,7 +154,6 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
-      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -193,7 +203,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="host" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+    <configuration name="host" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="UIDistribution.host" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -201,7 +211,6 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
-      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -252,14 +261,16 @@
       </method>
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4b5581db-bcb9-40b0-8feb-54af2135f351" name="Default Changelist" comment="" />
-      <created>1628836085340</created>
+      <changelist id="99b0f84b-261b-46e5-abbd-3f6f5affc2ee" name="Default Changelist" comment="" />
+      <created>1628831085381</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1628836085340</updated>
+      <updated>1628831085381</updated>
     </task>
     <servers />
   </component>
@@ -273,31 +284,21 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2699" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1628836090217">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="3653" y="443" key="#com.intellij.ide.util.MemberChooser" timestamp="1628832752299">
+      <screen x="2560" y="0" width="2560" height="1440" />
     </state>
-    <state x="2699" y="311" width="424" height="491" key="FileChooserDialogImpl/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1628836090217" />
-    <state width="1802" height="495" key="GridCell.Tab.0.bottom" timestamp="1628837619368">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="3653" y="443" key="#com.intellij.ide.util.MemberChooser/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1628832752299" />
+    <state x="4268" y="488" key="FileChooserDialogImpl" timestamp="1628838327323">
+      <screen x="2560" y="0" width="2560" height="1440" />
     </state>
-    <state width="1802" height="495" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1628837619368" />
-    <state width="1802" height="495" key="GridCell.Tab.0.center" timestamp="1628837619368">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="4268" y="488" key="FileChooserDialogImpl/2560.0.2560.1440/0.0.2560.1440@0.0.2560.1440" timestamp="1628838327323" />
+    <state x="4268" y="488" key="FileChooserDialogImpl/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1628832567388" />
+    <state x="2863" y="342" width="672" height="678" key="search.everywhere.popup" timestamp="1628835146088">
+      <screen x="2560" y="0" width="2560" height="1440" />
     </state>
-    <state width="1802" height="495" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1628837619368" />
-    <state width="1802" height="495" key="GridCell.Tab.0.left" timestamp="1628837619368">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1802" height="495" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1628837619368" />
-    <state width="1802" height="495" key="GridCell.Tab.0.right" timestamp="1628837619368">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1802" height="495" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1628837619368" />
-    <state x="2359" y="206" width="1022" height="737" key="SettingsEditor" timestamp="1628836433978">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2359" y="206" width="1022" height="737" key="SettingsEditor/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1628836433978" />
+    <state x="2863" y="342" width="672" height="678" key="search.everywhere.popup/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1628835146088" />
   </component>
 </project>

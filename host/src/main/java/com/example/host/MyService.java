@@ -58,19 +58,21 @@ public class MyService extends Service {
     class ServerThread extends Thread{
         @Override
         public void run() {
-            Log.d(TAG, "run: ");
+            Log.d(TAG, "run: accept?");
             int port = 5672;
 
             try{
                 ServerSocket serverSocket = new ServerSocket(port);
 
+
                 while(true){
-                    Log.d(TAG, "run: ");
                     Socket socket = serverSocket.accept();
+                    Log.d(TAG, "run: accept!");
 
                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                     oos.writeObject("Hello, World!");
                     oos.flush();
+                    Log.d(TAG, "run: send!");
 
                     socket.close();
                 }
