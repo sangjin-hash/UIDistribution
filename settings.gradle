@@ -1,3 +1,4 @@
 include ':host'
 include ':app'
 rootProject.name = "UIDistribution"
+include ':guest'
