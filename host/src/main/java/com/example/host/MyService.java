@@ -2,6 +2,7 @@ package com.example.host;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -14,6 +15,8 @@ import java.net.Socket;
 public class MyService extends Service {
     
     private static final String TAG = "[SOCKET] Service";
+
+    
 
     @Override
     public void onCreate() {
@@ -41,6 +44,7 @@ public class MyService extends Service {
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind: ");
         return null;
+        //mBinder;
     }
     
     class ServerThread extends Thread{

@@ -1,10 +1,9 @@
-// IMyAidlInterface.aidl
+// IServiceCallback.aidl
 package com.example.host;
 
 // Declare any non-default types here with import statements
-import IServiceStateCallback;
 
-interface IMyAidlInterface {
+interface IServiceCallback {
     /**
      * Demonstrates some basic types that you can use as parameters
      * and return values in AIDL.
