@@ -15,7 +15,7 @@
                  android:enabled="true"
                  android:exported="true">
             <intent-filter>
-                <action android:name="com.example.hos.MY_SERVICE"/>
+                <action android:name="com.example.host.MY_SERVICE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
 
