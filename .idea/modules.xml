@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/UIDistribution.iml" filepath="$PROJECT_DIR$/.idea/UIDistribution.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/UIDistribution.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/UIDistribution.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/guest/UIDistribution.guest.iml" filepath="$PROJECT_DIR$/.idea/modules/guest/UIDistribution.guest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/host/UIDistribution.host.iml" filepath="$PROJECT_DIR$/.idea/modules/host/UIDistribution.host.iml" />
     </modules>
   </component>
 </project>

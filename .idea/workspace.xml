@@ -30,15 +30,17 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/Sangjin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02be252f-73a9-465e-9917-56d82942544a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/UIDistribution.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UIDistribution.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <list id="4e019549-697c-4f5a-b5d9-28bc79876b12" name="Revert &quot;Add AIDL&quot;" comment="Revert &quot;Add AIDL&quot;&#10;&#10;This reverts commit 84e05269" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +91,7 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-08-17T07:42:07.168328Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../UITransfer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -342,6 +344,14 @@
       <option name="presentableId" value="Default" />
       <updated>1628847342558</updated>
     </task>
+    <task id="LOCAL-00001" summary="add gitignore">
+      <created>1629202909677</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1629202909677</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -349,12 +359,28 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Sangjin" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="add gitignore" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2725" y="465" key="#PSD" timestamp="1629176286011">
@@ -409,10 +435,10 @@
     </state>
     <state x="2767" y="334" width="728" height="482" key="MultipleFileMergeDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1629202755560" />
     <state x="3689" y="445" key="MultipleFileMergeDialog/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1628845811699" />
-    <state x="2511" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1629202783825">
+    <state x="2511" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1629202983266">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2511" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1629202783825" />
+    <state x="2511" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1629202983266" />
     <state x="2697" y="468" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1629202700444">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
