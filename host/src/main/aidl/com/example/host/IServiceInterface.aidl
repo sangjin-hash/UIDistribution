@@ -6,4 +6,7 @@ package com.example.host;
 
 interface IServiceInterface {
     void serviceThreadStart();
+    String getStringText(String text);
+    int getSizeOfText(int size);
+    int getFlag(int flag);
 }
