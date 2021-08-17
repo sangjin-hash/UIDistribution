@@ -9,31 +9,29 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class MyService extends Service {
     
     private static final String TAG = "[SOCKET] Service";
 
-    IServiceInterface mServiceInterface;
-    IServiceCallback mCallback;
-
-    public  Binder mBinder = new IServiceInterface.Stub() {
+    public Binder mBinder = new IServiceInterface.Stub() {
         @Override
-        public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
-
+        public void serviceThreadStart() throws RemoteException {
+            Log.d(TAG, "serviceThreadStart: ");
+            ServerThread serverThread = new ServerThread();
+            serverThread.start();
         }
     };
 
     @Override
     public void onCreate() {
         super.onCreate();
-
         Log.d(TAG, "onCreate: ");
-        ServerThread serverThread = new ServerThread();
-        serverThread.start();
     }
 
     @Override
@@ -54,7 +52,7 @@ public class MyService extends Service {
         Log.d(TAG, "onBind: ");
         return mBinder;
     }
-    
+
     class ServerThread extends Thread{
         @Override
         public void run() {
@@ -64,19 +62,24 @@ public class MyService extends Service {
             try{
                 ServerSocket serverSocket = new ServerSocket(port);
 
-
-                while(true){
+                while (true){
                     Socket socket = serverSocket.accept();
                     Log.d(TAG, "run: accept!");
 
                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                    oos.writeObject("Hello, World!");
+                    String message = "Hello, World!";
+                    oos.writeObject(message);
                     oos.flush();
-                    Log.d(TAG, "run: send!");
-
+                    Log.d(TAG, "run: send: " + message);
                     socket.close();
                 }
 
+            } catch (UnknownHostException e){
+                Log.d(TAG, "run: unknown host exception");
+                e.printStackTrace();
+            } catch (IOException e) {
+                Log.d(TAG, "run: IO exception");
+                e.printStackTrace();
             } catch (Exception e){
                 e.printStackTrace();
             }

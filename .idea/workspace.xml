@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -38,10 +46,16 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/guest/UIDistribution.guest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/guest/UIDistribution.guest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/host/UIDistribution.host.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/host/UIDistribution.host.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/UIDistribution.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/UIDistribution.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/uidistribution/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/uidistribution/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guest/src/main/java/com/example/guest/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/guest/src/main/java/com/example/guest/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guest/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/guest/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/host/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/host/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/host/src/main/aidl/com/example/host/IServiceCallback.aidl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/host/src/main/aidl/com/example/host/IServiceInterface.aidl" beforeDir="false" afterPath="$PROJECT_DIR$/host/src/main/aidl/com/example/host/IServiceInterface.aidl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/host/src/main/java/com/example/host/MyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/host/src/main/java/com/example/host/MyService.java" afterDir="false" />
     </list>
     <list id="4e019549-697c-4f5a-b5d9-28bc79876b12" name="Revert &quot;Add AIDL&quot;" comment="Revert &quot;Add AIDL&quot;&#10;&#10;This reverts commit 84e05269" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,12 +95,72 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Web-UI" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Android App.host">
+  <component name="RunManager" selected="Android App.MainActivity">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainActivity" type="AndroidRunConfigurationType" factoryName="Android App" temporary="true">
+      <module name="UIDistribution.host" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="specific_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="com.example.host.MainActivity" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
@@ -262,6 +336,11 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android App.MainActivity" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -301,13 +380,42 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2725" y="465" key="#PSD" timestamp="1629176286011">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2725" y="465" key="#PSD/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1629176286011" />
     <state x="3148" y="187" width="1806" height="960" key="DiffContextDialog" timestamp="1628847336908">
       <screen x="2560" y="0" width="2560" height="1440" />
     </state>
     <state x="3148" y="187" width="1806" height="960" key="DiffContextDialog/2560.0.2560.1440/0.0.2560.1440@0.0.2560.1440" timestamp="1628847336908" />
+    <state x="3601" y="496" key="FileChooserDialogImpl" timestamp="1629178793873">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1041" y="496" key="FileChooserDialogImpl/2560.0.2560.1440/0.0.2560.1440@0.0.2560.1440" timestamp="1629086316497" />
+    <state x="3601" y="496" key="FileChooserDialogImpl/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1629178793873" />
+    <state width="2516" height="353" key="GridCell.Tab.0.bottom" timestamp="1629178610070">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state width="2516" height="353" key="GridCell.Tab.0.bottom/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1629178610070" />
+    <state width="2516" height="353" key="GridCell.Tab.0.center" timestamp="1629178610070">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state width="2516" height="353" key="GridCell.Tab.0.center/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1629178610070" />
+    <state width="2516" height="353" key="GridCell.Tab.0.left" timestamp="1629178610070">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state width="2516" height="353" key="GridCell.Tab.0.left/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1629178610070" />
+    <state width="2516" height="353" key="GridCell.Tab.0.right" timestamp="1629178610070">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state width="2516" height="353" key="GridCell.Tab.0.right/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1629178610070" />
     <state x="3689" y="445" key="MultipleFileMergeDialog" timestamp="1628845811699">
       <screen x="2560" y="0" width="2560" height="1440" />
     </state>
     <state x="3689" y="445" key="MultipleFileMergeDialog/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1628845811699" />
+    <state x="2864" y="342" key="run.anything.popup" timestamp="1629176417478">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2864" y="342" key="run.anything.popup/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1629176417478" />
   </component>
 </project>
