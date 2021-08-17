@@ -1,7 +1,9 @@
 package com.example.host;
 
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -19,12 +21,43 @@ public class MyService extends Service {
     
     private static final String TAG = "[SOCKET] Service";
 
+    IServiceInterface myService;
+
+    final ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, "onServiceConnected: Service Connected?");
+            myService = IServiceInterface.Stub.asInterface(service);
+            Log.d(TAG, "onServiceConnected: Service Connected!");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG, "onServiceDisconnected: ");
+        }
+    };
+
     public Binder mBinder = new IServiceInterface.Stub() {
         @Override
         public void serviceThreadStart() throws RemoteException {
             Log.d(TAG, "serviceThreadStart: ");
             ServerThread serverThread = new ServerThread();
             serverThread.start();
+        }
+
+        @Override
+        public String getStringText(String text) throws RemoteException {
+            return text;
+        }
+
+        @Override
+        public int getSizeOfText(int size) throws RemoteException {
+            return size;
+        }
+
+        @Override
+        public int getFlag(int flag) throws RemoteException {
+            return flag;
         }
     };
 
@@ -61,17 +94,10 @@ public class MyService extends Service {
 
             try{
                 ServerSocket serverSocket = new ServerSocket(port);
-
                 while (true){
                     Socket socket = serverSocket.accept();
                     Log.d(TAG, "run: accept!");
 
-                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                    String message = "Hello, World!";
-                    oos.writeObject(message);
-                    oos.flush();
-                    Log.d(TAG, "run: send: " + message);
-                    socket.close();
                 }
 
             } catch (UnknownHostException e){
