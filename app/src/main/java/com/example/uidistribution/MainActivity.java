@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     IServiceInterface myService;
 
     private TextView text1;
-    private Button button1;
+    private Button btn_change;
 
     private final int flag_text = 1;
     private final int flag_btn = 2;
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        text1 = (TextView)findViewById(R.id.text1);
-        button1 = (Button)findViewById(R.id.button1);
+        text1 = (TextView)findViewById(R.id.text01);
+        btn_change = (Button)findViewById(R.id.btn_change); // Modify button name
 
         text1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        button1.setOnLongClickListener(new View.OnLongClickListener() {
+
+        btn_change.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
