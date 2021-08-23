@@ -7,35 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_Service"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="Service 시작"
-        tools:layout_editor_absoluteX="130dp" />
-
-    <Button
-        android:id="@+id/btn_Bind"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="BIND"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/text1"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:text = "Hello, World!"
         android:textSize = "32dp"/>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height = "wrap_content"
-        android:text = "Change the Color"/>
 
 </LinearLayout>
