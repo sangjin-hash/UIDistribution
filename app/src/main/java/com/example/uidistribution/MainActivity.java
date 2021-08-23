@@ -17,17 +17,13 @@ import android.widget.TextView;
 
 import com.example.host.IServiceInterface;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "[SOCKET] Server";
 
     IServiceInterface myService;
 
     private TextView text1;
-    private Button button1;
-
-    private final int flag_text = 1;
-    private final int flag_btn = 2;
 
     final ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -48,31 +44,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent("com.example.host.MY_SERVICE");
+        intent.setPackage("com.example.host");
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        Log.d(TAG, "onCreate: Bind Service");
+
         text1 = (TextView)findViewById(R.id.text1);
-        button1 = (Button)findViewById(R.id.button1);
+
 
         text1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //AIDL의 메소드를 호출해서 text1의 String text값과 int textSize값 Host로 보냄.
                 String text = text1.getText().toString();
                 int text_size = pxToDp((int) text1.getTextSize());
                 try {
-                    //이거 아닌거같음.
-                    myService.getFlag(flag_text);
-                    myService.getStringText(text);
-                    myService.getSizeOfText(text_size);
+                    Log.d(TAG, "Service Start 성공");
+                    myService.isClick();
+                    myService.setStringText(text);
+                    Log.d(TAG, "setStringText 성공");
+                    myService.setSizeOfText(text_size);
+                    Log.d(TAG, "setSizeOfText 성공");
                 } catch (RemoteException e) {
                     e.printStackTrace();
                     Log.d(TAG,"onLongclick에서 RemoteException 발생");
                 }
-                return true;
-            }
-        });
-
-        button1.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
                 return true;
             }
         });
@@ -81,30 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_Bind:
-                Intent intent = new Intent("com.example.host.MY_SERVICE");
-                intent.setPackage("com.example.host");
-                //getApplicationContext().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-                bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-                Log.d(TAG, "onCreate: Bind Service");
-                break;
-
-            case R.id.btn_Service:
-                try {
-                    Log.d(TAG, "onCreate: Start Service from Server?");
-                    myService.serviceThreadStart();
-                    Log.d(TAG, "onCreate: Service Start");
-                } catch (RemoteException e) {
-                    Log.d(TAG, "onCreate: Service Error");
-                    e.printStackTrace();
-                }
-                break;
-        }
     }
 
     public int pxToDp(int px)
