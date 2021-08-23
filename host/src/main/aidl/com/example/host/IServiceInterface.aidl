@@ -5,8 +5,13 @@ package com.example.host;
 
 
 interface IServiceInterface {
-    void serviceThreadStart();
-    String getStringText(String text);
-    int getSizeOfText(int size);
-    int getFlag(int flag);
+
+    void isClick();
+    boolean getClick();
+
+    void setStringText(String text);
+    String getStringText();
+
+    void setSizeOfText(int size);
+    int getSizeOfText();
 }
