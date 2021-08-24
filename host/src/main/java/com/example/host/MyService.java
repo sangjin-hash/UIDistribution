@@ -24,40 +24,23 @@ import java.net.UnknownHostException;
 public class MyService extends Service {
     
     private static final String TAG = "[SOCKET] Service";
+    private static boolean isClick = false;
+    private static String str;
+    private static int text_size;
 
-    IServiceInterface myService;
-
-    public Binder mBinder = new IServiceInterface.Stub() {
-
-        private boolean isClick;
-        private String text;
-        private int size;
+    public IServiceInterface.Stub mBinder = new IServiceInterface.Stub() {
 
         @Override
         public void isClick() throws RemoteException {
             isClick = true;
         }
 
-        public boolean getClick() throws RemoteException{
-            return isClick;
-        }
-
         public void setStringText(String text) throws RemoteException{
-            this.text = text;
-        }
-
-        @Override
-        public String getStringText() throws RemoteException {
-            return text;
+            str = text;
         }
 
         public void setSizeOfText(int size) throws RemoteException{
-            this.size = size;
-        }
-
-        @Override
-        public int getSizeOfText() throws RemoteException {
-            return size;
+            text_size = size;
         }
     };
 
@@ -96,40 +79,36 @@ public class MyService extends Service {
 
             try{
                 ServerSocket serverSocket = new ServerSocket(port);
-                Log.d(TAG, "서버가 실행됨");
                 while (true){
                     Socket socket = serverSocket.accept();
                     Log.d(TAG, "run: accept!");
 
-                    while(true){
-                            Log.d(TAG,"while문 안으로 들어옴");
-                            boolean isClick = myService.getClick();
-                            Log.d(TAG, "isClick = "+isClick); //문제점 2 myService 자체가 안됌.
-                            if(isClick){
-                                String text = myService.getStringText();
-                                Log.d(TAG, "myService.getStringText() = "+text);
-                                int size = myService.getSizeOfText();
-                                Log.d(TAG, "myService.getSizeOfText() = "+size);
-                                byte[] dtoByteArray = null;
+                    if(isClick){
+                        Log.d(TAG,"Trigger Event Occured");
+                        byte[] dtoByteArray = null;
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+                        OutputStream os = socket.getOutputStream();
 
-                                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                                DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-                                OutputStream os = socket.getOutputStream();
+                        try {
+                            dataOutputStream.writeUTF(str);
+                            dataOutputStream.writeInt(text_size);
+                            dataOutputStream.flush();
 
-                                try {
-                                    dataOutputStream.writeUTF(text);
-                                    dataOutputStream.writeInt(size);
-                                    dataOutputStream.flush();
-
-                                    dtoByteArray = byteArrayOutputStream.toByteArray();
-                                    os.write(dtoByteArray);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                    Log.d(TAG, "dataOutputStream IO exception");
-                                }
-                            }
+                            dtoByteArray = byteArrayOutputStream.toByteArray();
+                            os.write(dtoByteArray);
+                            isClick = false;
+                            socket.close();
+                            os.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.d(TAG, "IO exception");
                         }
+                    }else {
+                        Log.d(TAG,"Not Trigger Event Occured");
+                        socket.close();
                     }
+                }
             } catch (UnknownHostException e){
                 Log.d(TAG, "run: unknown host exception");
                 e.printStackTrace();
