@@ -34,44 +34,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        container = (LinearLayout)findViewById(R.id.layout);
 
         SocketConnect client = new SocketConnect();
-        Log.d(TAG,"Client의 Socket 만들기");
         client.start();
-        Log.d(TAG, "Client Socket Thread 시작");
     }
 
     class SocketConnect extends Thread{
         @Override
         public void run() {
             try{
-                Log.d(TAG, "run: before connect");
-                socket = new Socket(ip,port);
-                Log.d(TAG, "run: socket Connect");
-
                 while(true){
-                    if(socket.isConnected()){
-                        Log.d(TAG, "Server와 연결 완료");
+                    Log.d(TAG, "run: before connect");
+                    socket = new Socket(ip,port);
+                    Log.d(TAG, "run: socket Connect");
 
-                        //문제점 1 연결은 됐으나 트리거 이전에 빈 소켓이 전달됌
+                    if(socket.isConnected()){
                         byte[] recvBuffer = new byte[maxBufferSize];
                         InputStream is = socket.getInputStream();
-                        is.read(recvBuffer);
-                        Log.d(TAG, "서버에서 trigger 발생");
-                        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(recvBuffer);
-                        DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
+                        int num = is.read(recvBuffer);
+                        int print_one = 1;
 
-                        String getString = dataInputStream.readUTF();
-                        Log.d(TAG,"받은 문자열 = " + getString);
-                        int getSize = dataInputStream.readInt();
-                        Log.d(TAG, "받은 size = " + getSize);
+                        if(num > 0 && print_one == 1){
+                            print_one++;
+                            Log.d(TAG, "Trigger Event Occured in Server");
+                            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(recvBuffer);
+                            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
 
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                            String getString = dataInputStream.readUTF();
+                            int getSize = dataInputStream.readInt();
+
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
                                     textView(getString, getSize);
                                 }
-                        });
+                            });
+                            socket.close();
+                        }
+                        else{
+                            Log.d(TAG, "Not Trigger Event Occured");
+                            socket.close();
+                        }
                     }
                 }
             } catch (IOException e) {
@@ -90,5 +94,4 @@ public class MainActivity extends AppCompatActivity {
         view1.setLayoutParams(lp);
         container.addView(view1);
     }
-
 }
