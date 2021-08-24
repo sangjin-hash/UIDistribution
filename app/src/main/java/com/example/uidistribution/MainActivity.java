@@ -51,22 +51,18 @@ public class MainActivity extends AppCompatActivity{
 
         text1 = (TextView)findViewById(R.id.text1);
 
-
         text1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 String text = text1.getText().toString();
                 int text_size = pxToDp((int) text1.getTextSize());
                 try {
-                    Log.d(TAG, "Service Start 성공");
                     myService.isClick();
                     myService.setStringText(text);
-                    Log.d(TAG, "setStringText 성공");
                     myService.setSizeOfText(text_size);
-                    Log.d(TAG, "setSizeOfText 성공");
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                    Log.d(TAG,"onLongclick에서 RemoteException 발생");
+                    Log.d(TAG,"RemoteException");
                 }
                 return true;
             }
