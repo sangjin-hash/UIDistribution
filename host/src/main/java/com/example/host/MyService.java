@@ -76,15 +76,17 @@ public class MyService extends Service {
         public void run() {
             Log.d(TAG, "run: accept?");
             int port = 5672;
+            String ip = "192.168.0.28";
 
             try{
-                ServerSocket serverSocket = new ServerSocket(port);
-                while (true){
-                    Socket socket = serverSocket.accept();
-                    Log.d(TAG, "run: accept!");
-
+                while(true){
                     if(isClick){
                         Log.d(TAG,"Trigger Event Occured");
+
+                        Log.d(TAG, "run: before connect");
+                        Socket socket = new Socket(ip,port);
+                        Log.d(TAG, "run: socket Connect");
+
                         byte[] dtoByteArray = null;
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                         DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
@@ -99,19 +101,16 @@ public class MyService extends Service {
                             os.write(dtoByteArray);
                             isClick = false;
                             socket.close();
+                            Log.d(TAG, "Socket closed");
                             os.close();
                         } catch (IOException e) {
                             e.printStackTrace();
-                            Log.d(TAG, "IO exception");
+                            Log.d(TAG, "Data IO exception");
                         }
-                    }else {
+                    }else{
                         Log.d(TAG,"Not Trigger Event Occured");
-                        socket.close();
                     }
                 }
-            } catch (UnknownHostException e){
-                Log.d(TAG, "run: unknown host exception");
-                e.printStackTrace();
             } catch (IOException e) {
                 Log.d(TAG, "run: IO exception");
                 e.printStackTrace();
