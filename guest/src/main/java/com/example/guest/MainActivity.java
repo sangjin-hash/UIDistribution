@@ -16,15 +16,14 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "[SOCKET] Guest";
 
-    private String ip = "192.168.0.21";
     private int port = 5672;
-    Socket socket;
     private int maxBufferSize = 1024;
 
     private Handler mHandler = new Handler();
@@ -44,38 +43,36 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try{
+                ServerSocket serverSocket = new ServerSocket(port);
+
                 while(true){
-                    Log.d(TAG, "run: before connect");
-                    socket = new Socket(ip,port);
-                    Log.d(TAG, "run: socket Connect");
+                    Socket socket = serverSocket.accept();
+                    Log.d(TAG, "run: accept!");
 
-                    if(socket.isConnected()){
-                        byte[] recvBuffer = new byte[maxBufferSize];
-                        InputStream is = socket.getInputStream();
-                        int num = is.read(recvBuffer);
-                        int print_one = 1;
+                    byte[] recvBuffer = new byte[maxBufferSize];
+                    InputStream is = socket.getInputStream();
+                    int num = is.read(recvBuffer);
 
-                        if(num > 0 && print_one == 1){
-                            print_one++;
-                            Log.d(TAG, "Trigger Event Occured in Server");
-                            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(recvBuffer);
-                            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
+                    if(num > 0){
+                        Log.d(TAG, "Trigger Event Occured in Server");
+                        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(recvBuffer);
+                        DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
 
-                            String getString = dataInputStream.readUTF();
-                            int getSize = dataInputStream.readInt();
+                        String getString = dataInputStream.readUTF();
+                        int getSize = dataInputStream.readInt();
 
-                            mHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
                                     textView(getString, getSize);
                                 }
-                            });
-                            socket.close();
-                        }
-                        else{
-                            Log.d(TAG, "Not Trigger Event Occured");
-                            socket.close();
-                        }
+                        });
+                        socket.close();
+                        Log.d(TAG,"Socket closed");
+                    }
+                    else{
+                        Log.d(TAG, "Not Trigger Event Occured");
+                        socket.close();
                     }
                 }
             } catch (IOException e) {
