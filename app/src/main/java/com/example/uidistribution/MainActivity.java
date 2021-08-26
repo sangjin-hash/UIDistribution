@@ -13,6 +13,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.host.IServiceInterface;
@@ -23,7 +24,9 @@ public class MainActivity extends AppCompatActivity{
 
     IServiceInterface myService;
 
-    private TextView text1;
+    private EditText text1;
+    private EditText text2;
+    private EditText text3;
 
     final ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -49,7 +52,9 @@ public class MainActivity extends AppCompatActivity{
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         Log.d(TAG, "onCreate: Bind Service");
 
-        text1 = (TextView)findViewById(R.id.text1);
+        text1 = (EditText) findViewById(R.id.text1);
+        text2 = (EditText) findViewById(R.id.text2);
+        text3 = (EditText) findViewById(R.id.text3);
 
         text1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity{
                 String text = text1.getText().toString();
                 int text_size = pxToDp((int) text1.getTextSize());
                 try {
+                    Log.d(TAG,"Test 1 에서 Trigger 발생");
                     myService.isClick();
                     myService.setStringText(text);
                     myService.setSizeOfText(text_size);
@@ -67,6 +73,44 @@ public class MainActivity extends AppCompatActivity{
                 return true;
             }
         });
+
+        text2.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                String text = text2.getText().toString();
+                int text_size = pxToDp((int) text2.getTextSize());
+                try {
+                    Log.d(TAG,"Test 2 에서 Trigger 발생");
+                    myService.isClick();
+                    myService.setStringText(text);
+                    myService.setSizeOfText(text_size);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                    Log.d(TAG,"RemoteException");
+                }
+                return true;
+            }
+        });
+
+        text3.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                String text = text3.getText().toString();
+                int text_size = pxToDp((int) text3.getTextSize());
+                try {
+                    Log.d(TAG,"Test 3 에서 Trigger 발생");
+                    myService.isClick();
+                    myService.setStringText(text);
+                    myService.setSizeOfText(text_size);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                    Log.d(TAG,"RemoteException");
+                }
+                return true;
+            }
+        });
+
+
     }
 
     @Override
