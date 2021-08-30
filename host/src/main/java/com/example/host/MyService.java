@@ -33,10 +33,11 @@ public class MyService extends Service {
     private static boolean isClick = false;
     private static String str;
     private static int text_size;
+    private static String UI_flag;
 
     private int port = 5672;
-    private Handler ServerHandler;
-    private Handler OutputHandler;
+    private ArrayList<Socket> uiList;
+    private ArrayList<String> idList;
 
     public IServiceInterface.Stub mBinder = new IServiceInterface.Stub() {
 
@@ -52,6 +53,10 @@ public class MyService extends Service {
         public void setSizeOfText(int size) throws RemoteException {
             text_size = size;
         }
+
+        public void setFlag(String flag) throws RemoteException {
+            UI_flag = flag;
+        }
     };
 
     @Override
@@ -64,11 +69,6 @@ public class MyService extends Service {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ServerHandlerThread serverHandlerThread = new ServerHandlerThread();
-        serverHandlerThread.start();
-
-        OutputHandlerThread outputHandlerThread = new OutputHandlerThread();
-        outputHandlerThread.start();
     }
 
     @Override
@@ -92,52 +92,49 @@ public class MyService extends Service {
 
     class ServerThread extends Thread {
         private ServerSocket server;
-        private ArrayList<Socket> uiList;
+        private boolean search_result = false;
         private int i = 0;
 
         public ServerThread(int port) throws IOException {
             server = new ServerSocket(port);
             uiList = new ArrayList<Socket>();
+            idList = new ArrayList<String>();
         }
 
         @Override
         public void run() {
             while (true) {
                 try {
-                    if (isClick) { // 발생할 수 있는 문제점 -> 같은 UI를 여러번 눌렀을 때 중복으로 생성되지 않게 막아야함.
-                        Socket socket = server.accept();
-                        uiList.add(socket);
+                    if (isClick) {
+                        for (int j = 0; j < idList.size(); j++) {
+                            if (UI_flag.compareTo(idList.get(j)) == 0) {
+                                search_result = true;
+                                break;
+                            } else {
+                                search_result = false;
+                            }
+                        }
 
-                        OutputThread outputThread = new OutputThread(uiList.get(i));
-                        outputThread.start();
+                        if (idList.size() == 0) search_result = false;
 
-                        Message m = Message.obtain();
-                        m.what = i;
-                        Log.d(TAG, "Message 객체를 만들어 what에 i를 넣어 보내기 -> i =" + m.what);
-                        OutputHandler.sendMessage(m);
-                        i++;
+                        if (!search_result) {
+                            idList.add(UI_flag);
+                            Socket socket = server.accept();
+                            uiList.add(socket);
+
+                            OutputThread outputThread = new OutputThread(uiList.get(i));
+                            outputThread.start();
+                            outputThread.join();
+                            i++;
+                        } else {
+                            Log.d(TAG, "이미 Distribution된 UI입니다.");
+                            isClick = false;
+                        }
                     }
-                } catch (IOException e) {
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }
-    }
-
-    class ServerHandlerThread extends Thread {
-        public ServerHandlerThread() {
-            ServerHandler = new Handler() {
-                @Override
-                public void handleMessage(@NonNull Message msg) {
-                    Log.d(TAG, msg.what + "번째 UI에 해당하는 Socket 생성 완료");
-                }
-            };
-        }
-
-        @Override
-        public void run() {
-            Looper.prepare();
-            Looper.loop();
         }
     }
 
@@ -163,32 +160,10 @@ public class MyService extends Service {
                 os.write(dtoByteArray);
                 isClick = false;
                 os.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d(TAG, "Data IO exception");
             }
-        }
-    }
-
-    class OutputHandlerThread extends Thread {
-        public OutputHandlerThread() {
-            OutputHandler = new Handler() {
-                @Override
-                public void handleMessage(@NonNull Message msg) {
-                    int i = msg.what;
-                    Log.d(TAG, "ServerHandler에게서 msg를 받음 i = " + i);
-                    Message m2 = Message.obtain();
-                    m2.what = i;
-                    ServerHandler.sendMessage(m2);
-                }
-            };
-        }
-
-        @Override
-        public void run() {
-            Looper.prepare();
-            Looper.loop();
         }
     }
 }
