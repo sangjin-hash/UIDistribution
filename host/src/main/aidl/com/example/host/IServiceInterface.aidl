@@ -8,4 +8,5 @@ interface IServiceInterface {
     void isClick();
     void setStringText(String text);
     void setSizeOfText(int size);
+    void setFlag(String flag);
 }
