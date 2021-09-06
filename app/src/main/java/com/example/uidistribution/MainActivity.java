@@ -14,9 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.host.IServiceInterface;
 
@@ -65,7 +63,6 @@ public class MainActivity extends AppCompatActivity{
                 String text = text1.getText().toString();
                 int text_size = pxToDp((int) text1.getTextSize());
                 try {
-                    Log.d(TAG,"Test 1 에서 Trigger 발생");
                     myService.setFlag(flag);
                     myService.isClick();
                     myService.setStringText(text);
@@ -75,6 +72,31 @@ public class MainActivity extends AppCompatActivity{
                     Log.d(TAG,"RemoteException");
                 }
                 return true;
+            }
+        });
+
+        text1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = text1.getText().toString();
+                String flag = "#0001";
+                try {
+                    myService.setFlag(flag);
+                    myService.isUpdate();
+                    myService.setStringText(text);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -85,7 +107,6 @@ public class MainActivity extends AppCompatActivity{
                 String text = text2.getText().toString();
                 int text_size = pxToDp((int) text2.getTextSize());
                 try {
-                    Log.d(TAG,"Test 2 에서 Trigger 발생");
                     myService.setFlag(flag);
                     myService.isClick();
                     myService.setStringText(text);
@@ -95,6 +116,31 @@ public class MainActivity extends AppCompatActivity{
                     Log.d(TAG,"RemoteException");
                 }
                 return true;
+            }
+        });
+
+        text2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = text2.getText().toString();
+                String flag = "#0002";
+                try {
+                    myService.setFlag(flag);
+                    myService.isUpdate();
+                    myService.setStringText(text);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -105,7 +151,6 @@ public class MainActivity extends AppCompatActivity{
                 String text = text3.getText().toString();
                 int text_size = pxToDp((int) text3.getTextSize());
                 try {
-                    Log.d(TAG,"Test 3 에서 Trigger 발생");
                     myService.setFlag(flag);
                     myService.isClick();
                     myService.setStringText(text);
@@ -118,7 +163,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        /*text3.addTextChangedListener(new TextWatcher() {
+        text3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -132,14 +177,16 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void afterTextChanged(Editable s) {
                 String text = text3.getText().toString();
+                String flag = "#0003";
                 try {
+                    myService.setFlag(flag);
                     myService.isUpdate();
                     myService.setStringText(text);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
     }
 
     @Override
