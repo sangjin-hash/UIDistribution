@@ -33,8 +33,10 @@ public class MyService extends Service {
     private int port = 5672;
     private ArrayList<UI_Information> UIList = new ArrayList<>();
 
-    private Handler updateHandler;
-    private Handler outputHandler;
+    private Handler workerHandler;
+
+    private final int distribute_flag = 1;
+    private final int update_flag = 2;
 
     public IServiceInterface.Stub mBinder = new IServiceInterface.Stub() {
 
@@ -67,6 +69,9 @@ public class MyService extends Service {
         try {
             ServerThread server = new ServerThread(port);
             server.start();
+
+            WorkerThread worker = new WorkerThread();
+            worker.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,14 +156,11 @@ public class MyService extends Service {
                 try {
                     if (isClick) {
                         search_result = isSearch();
-
                         if (!search_result) {
                             UI_Information UI = new UI_Information(UI_flag, str, false, false);
                             UIList.add(UI);
                             Socket socket = server.accept();
                             Log.d(TAG, "Socket Connected");
-
-                            OutputThread outputThread = new OutputThread(socket);
 
                             int k;
                             for (k = 0; k < UIList.size(); k++) {
@@ -168,11 +170,10 @@ public class MyService extends Service {
                             }
 
                             Message msg = Message.obtain();
+                            msg.what = distribute_flag;
                             msg.arg1 = k;
-                            outputHandler.sendMessage(msg);
-
-                            outputThread.start();
-                            outputThread.join();
+                            msg.obj = socket;
+                            workerHandler.sendMessage(msg);
                         } else {
                             Log.d(TAG, "Already existed UI");
                             isClick = false;
@@ -189,20 +190,18 @@ public class MyService extends Service {
                             UIList.get(k).set_text(str);
 
                             Socket socket = server.accept();
-                            UpdateThread updateThread = new UpdateThread(socket);
 
                             Message msg = Message.obtain();
+                            msg.what = update_flag;
                             msg.arg1 = k;
-                            updateHandler.sendMessage(msg);
-
-                            updateThread.start();
-                            updateThread.join();
+                            msg.obj = socket;
+                            workerHandler.sendMessage(msg);
                         } else {
                             Log.d(TAG, "It is not distributed so return initial state");
                             isUpdate = false;
                         }
                     }
-                } catch (IOException | InterruptedException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -224,7 +223,94 @@ public class MyService extends Service {
         return result;
     }
 
-    class OutputThread extends Thread {
+
+    class WorkerThread extends Thread {
+
+        private Socket socket;
+        private int flag;
+        private int k;
+
+        public WorkerThread() {
+        }
+
+        @Override
+        public void run() {
+            Looper.prepare();
+
+            workerHandler = new Handler() {
+                @Override
+                public void handleMessage(@NonNull Message msg) {
+                    flag = msg.what;
+                    k = msg.arg1;
+                    socket = (Socket) msg.obj;
+
+                    switch (flag) {
+                        case 1: //distriubte
+                            try {
+                                byte[] dtoByteArray = null;
+                                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                                DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+                                OutputStream os = socket.getOutputStream();
+
+                                dataOutputStream.writeInt(k);
+                                dataOutputStream.writeBoolean(UIList.get(k).get_update());
+                                dataOutputStream.writeUTF(str);
+                                dataOutputStream.writeInt(text_size);
+                                dataOutputStream.flush();
+
+                                dtoByteArray = byteArrayOutputStream.toByteArray();
+                                os.write(dtoByteArray);
+                                UIList.get(k).set_distribute(true);
+                                isClick = false;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+
+                        case 2: //update
+                            if (UIList.get(k).get_distribute()) { //distribute되었을 때 ui의 str값만 보낸다.
+                                try {
+                                    UIList.get(k).set_update(true);
+                                    byte[] dtoByteArray = null;
+                                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                                    DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+                                    OutputStream os = socket.getOutputStream();
+
+                                    dataOutputStream.writeInt(k);
+                                    dataOutputStream.writeBoolean(UIList.get(k).get_update());
+                                    dataOutputStream.writeUTF(UIList.get(k).get_text());
+                                    dataOutputStream.flush();
+
+                                    dtoByteArray = byteArrayOutputStream.toByteArray();
+                                    os.write(dtoByteArray);
+
+                                    UIList.get(k).set_update(false);
+                                    isUpdate = false;
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {//distribute되지 않았을 때, 그냥 초기 상태로 되돌림. 즉, 다시 ServerThread가 돌게 하고, 사용자가 정보를 받는 입장에서는
+                                //변경된 str값이 default값인줄 알고 있는거임.
+                                try {
+                                    socket.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                isUpdate = false;
+                            }
+                            break;
+                        default:
+                            Log.d(TAG, "Flag value is default");
+                            break;
+                    }
+                }
+            };
+            Looper.loop();
+        }
+    }
+}
+
+    /*class OutputThread extends Thread {
         private Socket socket;
         private int k;
 
@@ -312,5 +398,4 @@ public class MyService extends Service {
                 isUpdate = false;
             }
         }
-    }
-}
+    }*/
