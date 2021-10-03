@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/androidstudio,java,linux,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio,java,linux,windows
+# Created by https://www.toptal.com/developers/gitignore/api/java,gradle,androidstudio
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,androidstudio
 
 ### Java ###
 # Compiled class file
@@ -27,46 +27,30 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-### Linux ###
-*~
+### Gradle ###
+.gradle
+build/
 
-# temporary files which can be created if a process still has a handle open of a deleted file
-.fuse_hidden*
+# Ignore Gradle GUI config
+gradle-app.setting
 
-# KDE directory preferences
-.directory
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
 
-# Linux trash folder which might appear on any partition or disk
-.Trash-*
+# Cache of project
+.gradletasknamecache
 
-# .nfs files are created when an open file is removed but is still being accessed
-.nfs*
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
 
-### Windows ###
-# Windows thumbnail cache files
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
+### Gradle Patch ###
+**/build/
 
-# Dump file
-*.stackdump
-
-# Folder config file
-[Dd]esktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
 
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
@@ -87,9 +71,7 @@ gen/
 out/
 
 # Gradle files
-.gradle
 .gradle/
-build/
 
 # Signing files
 .signing/
@@ -111,6 +93,7 @@ proguard/
 captures/
 .navigation/
 *.ipr
+*~
 *.swp
 
 # Keystore files
@@ -166,10 +149,10 @@ obj/
 ._*
 .Spotlight-V100
 .Trashes
+ehthumbs.db
+Thumbs.db
 
 # Legacy Eclipse project files
-.classpath
-.project
 .cproject
 .settings/
 
@@ -200,4 +183,4 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-# End of https://www.toptal.com/developers/gitignore/api/androidstudio,java,linux,windows
+# End of https://www.toptal.com/developers/gitignore/api/java,gradle,androidstudio
