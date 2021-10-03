@@ -178,7 +178,7 @@ public class MyService extends Service {
                             Log.d(TAG, "Already existed UI");
                             isClick = false;
                         }
-                    } else if (isUpdate) { //update 이전에 모든 UI가 이미 Distribute 되어 있고, 그 위에서 update할 때
+                    } else if (isUpdate) {
                         search_result = isSearch();
 
                         if (search_result) {
@@ -245,7 +245,7 @@ public class MyService extends Service {
                     socket = (Socket) msg.obj;
 
                     switch (flag) {
-                        case 1: //distriubte
+                        case 1:
                             try {
                                 byte[] dtoByteArray = null;
                                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -267,8 +267,8 @@ public class MyService extends Service {
                             }
                             break;
 
-                        case 2: //update
-                            if (UIList.get(k).get_distribute()) { //distribute되었을 때 ui의 str값만 보낸다.
+                        case 2:
+                            if (UIList.get(k).get_distribute()) {
                                 try {
                                     UIList.get(k).set_update(true);
                                     byte[] dtoByteArray = null;
@@ -289,8 +289,7 @@ public class MyService extends Service {
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                            } else {//distribute되지 않았을 때, 그냥 초기 상태로 되돌림. 즉, 다시 ServerThread가 돌게 하고, 사용자가 정보를 받는 입장에서는
-                                //변경된 str값이 default값인줄 알고 있는거임.
+                            } else {
                                 try {
                                     socket.close();
                                 } catch (IOException e) {
@@ -309,93 +308,3 @@ public class MyService extends Service {
         }
     }
 }
-
-    /*class OutputThread extends Thread {
-        private Socket socket;
-        private int k;
-
-        public OutputThread(Socket socket) {
-            this.socket = socket;
-            outputHandler = new Handler(Looper.getMainLooper()) {
-                @Override
-                public void handleMessage(@NonNull Message msg) {
-                    k = msg.arg1;
-                }
-            };
-        }
-
-        @Override
-        public void run() {
-            try {
-                byte[] dtoByteArray = null;
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-                OutputStream os = socket.getOutputStream();
-
-                dataOutputStream.writeInt(k);
-                dataOutputStream.writeBoolean(UIList.get(k).get_update());
-                dataOutputStream.writeUTF(str);
-                dataOutputStream.writeInt(text_size);
-                dataOutputStream.flush();
-
-                dtoByteArray = byteArrayOutputStream.toByteArray();
-                os.write(dtoByteArray);
-                UIList.get(k).set_distribute(true);
-                isClick = false;
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d(TAG, "Data IO exception");
-            }
-        }
-    }
-
-    class UpdateThread extends Thread {
-        private Socket socket;
-        private int k;
-
-        public UpdateThread(Socket socket) {
-            this.socket = socket;
-
-            updateHandler = new Handler(Looper.getMainLooper()) {
-                @Override
-                public void handleMessage(@NonNull Message msg) {
-                    k = msg.arg1;
-                }
-            };
-        }
-
-        @Override
-        public void run() {
-
-            if (UIList.get(k).get_distribute()) { //distribute되었을 때 ui의 str값만 보낸다.
-                try {
-                    UIList.get(k).set_update(true);
-                    byte[] dtoByteArray = null;
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
-                    OutputStream os = socket.getOutputStream();
-
-                    dataOutputStream.writeInt(k);
-                    dataOutputStream.writeBoolean(UIList.get(k).get_update());
-                    dataOutputStream.writeUTF(UIList.get(k).get_text());
-                    dataOutputStream.flush();
-
-                    dtoByteArray = byteArrayOutputStream.toByteArray();
-                    os.write(dtoByteArray);
-
-                    UIList.get(k).set_update(false);
-                    isUpdate = false;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {//distribute되지 않았을 때, 그냥 초기 상태로 되돌림. 즉, 다시 ServerThread가 돌게 하고, 사용자가 정보를 받는 입장에서는
-                //변경된 str값이 default값인줄 알고 있는거임.
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                isUpdate = false;
-            }
-        }
-    }*/

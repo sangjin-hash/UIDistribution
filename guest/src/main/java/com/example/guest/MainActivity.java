@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private int maxBufferSize = 1024;
 
     private Handler mHandler = new Handler();
-    private Handler updateHandler;
+    private Handler updateHandler = new Handler();
+    private Handler workerHandler;
+
     private LinearLayout container;
     private ArrayList<EditText> UI_List = new ArrayList<EditText>();
 
@@ -40,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         ClientThread client = new ClientThread();
         client.start();
+
+        WorkerThread worker = new WorkerThread();
+        worker.start();
     }
 
     class ClientThread extends Thread {
@@ -48,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
             while (true) {
                 try {
                     Socket socket = new Socket(ip, port);
-                    InputThread inputThread = new InputThread(socket);
-                    inputThread.start();
+                    Message msg = Message.obtain();
+                    msg.obj = socket;
+                    workerHandler.sendMessage(msg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -57,78 +63,59 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class InputThread extends Thread {
-
+    class WorkerThread extends Thread{
         private Socket socket;
 
-        public InputThread(Socket socket) {
-            this.socket = socket;
-        }
+        public WorkerThread(){ }
 
-        @Override
-        public void run() {
-            try {
-                byte[] recvBuffer = new byte[maxBufferSize];
-                InputStream is = socket.getInputStream();
-                int num = is.read(recvBuffer);
+        public void run(){
+            Looper.prepare();
 
-                if (num > 0) {
-                    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(recvBuffer);
-                    DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
-
-                    int k = dataInputStream.readInt();
-                    Boolean isUpdate = dataInputStream.readBoolean();
-                    String getString = dataInputStream.readUTF();
-
-                    if (isUpdate) {
-                        Log.d(TAG,"Update is occured");
-                        UpdateThread updateThread = new UpdateThread();
-                        updateThread.start();
-                        Message m = Message.obtain();
-                        m.obj = getString;
-                        m.arg1 = k;
-                        updateHandler.sendMessage(m);
-                    } else {
-                        Log.d(TAG, "Update is NOT occured");
-                        int getSize = dataInputStream.readInt();
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                EditText(getString, getSize);
-                            }
-                        });
-                    }
-                } else {
-                    Log.d(TAG, "Trigger Event NOT occured");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    class UpdateThread extends Thread {
-        private String str;
-        private int k;
-
-        public UpdateThread(){
-            updateHandler = new Handler(Looper.getMainLooper()) {
+            workerHandler = new Handler(){
                 @Override
                 public void handleMessage(@NonNull Message msg) {
-                    str = String.valueOf(msg.obj);
-                    k = msg.arg1;
+                    socket = (Socket)msg.obj;
+
+                    try {
+                        byte[] recvBuffer = new byte[maxBufferSize];
+                        InputStream is = socket.getInputStream();
+                        int num = is.read(recvBuffer);
+
+                        if (num > 0) {
+                            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(recvBuffer);
+                            DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
+
+                            int k = dataInputStream.readInt();
+                            Boolean isUpdate = dataInputStream.readBoolean();
+                            String getString = dataInputStream.readUTF();
+
+                            if (isUpdate) {
+                                Log.d(TAG,"Update is occured");
+                                updateHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        UI_List.get(k).setText(getString);
+                                    }
+                                });
+                            } else {
+                                Log.d(TAG, "Update is NOT occured");
+                                int getSize = dataInputStream.readInt();
+                                mHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        EditText(getString, getSize);
+                                    }
+                                });
+                            }
+                        } else {
+                            Log.d(TAG, "Trigger Event NOT occured");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             };
-        }
-
-        @Override
-        public void run() {
-            updateHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    UI_List.get(k).setText(str);
-                }
-            });
+            Looper.loop();
         }
     }
 
