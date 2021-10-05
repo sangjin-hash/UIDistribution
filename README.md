@@ -38,13 +38,12 @@ Proxy Host App이 서로 IPC를 통해 aidl에서 정의한 동일한 함수들�
         void setStringText(String text);    //EditText의 Text를 가져오는 함수
         void setSizeOfText(int size);       //EditText의 Text size를 가져오는 함수
         void setFlag(String flag);          //UI의 flag를 가져오는 함수
-    }
+  
+즉, IPC는 Binder로 의해 Foreground의 Host와 Background의 Proxy가 묶임으로서 서로 다른 프로세스끼리 통신을 할 수 있고, AIDL의 method들을 호출함으로써 이는 RPC에 의해 동일한 함수가 구현되어 있는 다른 프로세스에서 호출을 할 수 있는 것이다.
 
 
 ## 4. Socket Programming
-Socket Programming은 Proxy Host App과 Guest App이 서로 RPC(Remote Procedure Call)을 통해 구현되어 있다. Proxy Host App의 Service의 ServerThread에서 Server Socket을 생성하고, 
-while문을 통해 연결 요청이 올 때까지 대기 했다가 연결 요청이 오면 accept()하며 socket을 지속적으로 생성한다. 마찬가지로 Guest App에서는 ClientThread에서 Socket을 지속적으로 생성한다.
-이 때 Socket Connection은 위에서 IPC를 통한 UI에 대한 data를 socket에 첨부하여 주고 받는 형식으로 구현했다. 
+Socket Programming은 Proxy Host App과 Guest App이 서로 다른 Device에서 Socket Connection을 통해 통신을 하는 것이 구현되어 있다. Proxy Host App의 Service의 ServerThread에서 Server Socket을 생성하고,  while문을 통해 연결 요청이 올 때까지 대기 했다가 연결 요청이 오면 accept()하며 socket을 지속적으로 생성한다. 마찬가지로 Guest App에서는 ClientThread에서 Socket을 지속적으로 생성한다. 
 Proxy Host App의 ```MyService.java``` 와 Guest App의 ```MainActivity.java``` 에서는 Server/Client Thread에서 Socket을 생성하고 이를 Worker Thread에 Message를 만들어 전송하여
 Looper & Handler & Message Queue를 통해 Message를 모두 처리한다. 
 
@@ -54,3 +53,10 @@ Looper & Handler & Message Queue를 통해 Message를 모두 처리한다.
 - 현재 구현된 사항으로는 Host -> Guest 일방향 Update가 구현되어 있으나, 추후에 양방향 Interaction이 가능하게끔 구현하기
 - 본 프로젝트를 활용하여 Proxy Host App과 Guest App은 유지하고, 사용자의 Foreground를 담당하는 Host App은 Trigger 발생하는 이벤트 및 AIDL interface를 모두 지우고, 
 Soot를 통해 Code instrument(AIDL interface class 추가, Trigger 발생 이벤트 추가)를 한다.
+
+
+## 6. Comment
+- 10/5 Comment
+    - 현재 구현되어 있는 구조는 Client 측에서 Socket을 지속적으로 생성하고, Server 측에서는 Socket 연결이 들어올 때까지 accept하며 Update나 Distribute가 될 때 매번 Socket 연결이 새로 되는 구조이다. 이러한 구조의 단점은 Guest쪽에서 지속적으로 Socket을 생성하기 때문에 Resource를 많이 차지할 수 있고, UI Distribute나 Update가 많이 발생할 시 매번 Connection이 이루어지는 것이 매우 비효율적이다. 그러므로 Socket은 Server < - > Guest 한번의 연결 시도로 지속적인 연결을 하고,
+
+AIDL에서 받은 UI를 직렬화한 데이터를 다루는 Worker Thread  -> ServerThread -> Client Thread -> Worker Thread(UI distribute or update) 이 구조
